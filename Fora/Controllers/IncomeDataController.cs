@@ -25,33 +25,6 @@ namespace Fora.Controllers
             _logger = logger;
         }
 
-        //[HttpGet]
-        //public async Task<IEnumerable<EdgarCompanyInfo>> GetSummariesAll()
-        //{
-        //    try
-        //    {
-        //        List<EdgarCompanyInfo> allCompanyInfo = new List<EdgarCompanyInfo>();
-
-        //        for (int i = 0; i < _settings.CIK_Values.Length; i++)
-        //        {
-        //            var currentCIK = _settings.CIK_Values[i];
-        //            var companyInfo = await GetCompanyInfoByCIK(currentCIK);
-
-        //            if (companyInfo != null)
-        //            {
-        //                allCompanyInfo.Add(companyInfo);
-        //            }
-        //        }
-
-        //        return allCompanyInfo;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex.Message);
-        //        throw;
-        //    }
-        //}
-
         /// <summary>
         /// endpoint for retrieving a list of companies as well as the
         /// amount of funding they are eligible to receive.The request should optionally allow the user to
@@ -87,7 +60,7 @@ namespace Fora.Controllers
                 var options = new JsonSerializerOptions { WriteIndented = true, };
                 string jsonString = JsonSerializer.Serialize(ammountInfo, options);
 
-                return Ok(ammountInfo);
+                return Ok(jsonString);
             }
             catch (Exception ex)
             {
