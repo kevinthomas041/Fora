@@ -92,7 +92,9 @@ namespace Fora.BusinessRules
             // If income is greater than or equal to $10B, standard fundable amount is 12.33 % of income.
             // If income is less than $10B, standard fundable amount is 21.51 % of income
             double percent = highestIncome >= _settings.MaxIncome ? _settings.MaxIncomePercent : _settings.MinIncomePercent;
-            amountInfo.StandardFundableAmount = ((double)highestIncome / 100) * percent;
+            var standardFundableAmount = ((double)highestIncome / 100) * percent;
+            
+            amountInfo.StandardFundableAmount = Math.Round(standardFundableAmount, 2);
         }
 
         private void SetSpecialFundableAmount(EdgarCompanyInfo companyInfo, Dictionary<int, decimal?> currencyPairs, AmountInfo amountInfo)
@@ -113,6 +115,8 @@ namespace Fora.BusinessRules
                 var subtractValue = (amountInfo.StandardFundableAmount / 100) * _settings.StandardFundingPercentOff;
                 amountInfo.SpecialFundableAmount = amountInfo.StandardFundableAmount - subtractValue;
             }
+
+            amountInfo.SpecialFundableAmount = Math.Round(amountInfo.SpecialFundableAmount, 2);
         }
     }
 }
